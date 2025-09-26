@@ -234,6 +234,16 @@ local Library = {}; do
     function Library:SetOpen(Bool)
         Library.MainFrame.Visible = Bool;
         Library.Open = Bool;
+
+        -- unlock cursor when ui is open, lock when closed
+        local UserInputService = game:GetService("UserInputService")
+        if Bool then
+            UserInputService.MouseBehavior = Enum.MouseBehavior.Default
+            UserInputService.MouseIconEnabled = true
+        else
+            UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
+            UserInputService.MouseIconEnabled = false
+        end
     end;
 
     function Library:Round(Number, Float)
@@ -886,6 +896,11 @@ local Library = {}; do
         }
 
         Library:Connect(game:GetService("UserInputService").InputBegan,  function(Input)
+            -- check if user is typing in any textbox
+            if game:GetService("UserInputService"):GetFocusedTextBox() then
+                return
+            end
+
             if Input.KeyCode == Library.Key then
                 Library:SetOpen(not Library.Open);
             end;
@@ -1735,26 +1750,36 @@ local Library = {}; do
             end);
     
             Library:Connect(game:GetService("UserInputService").InputBegan,  function(Input)
-                if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then 
-                    if Keybind["Mode"] == "Toggle" then 
+                -- check if user is typing in any textbox
+                if game:GetService("UserInputService"):GetFocusedTextBox() then
+                    return
+                end
+
+                if Input.KeyCode == Keybind["Key"] and not Keybind.IsBeingSelected then
+                    if Keybind["Mode"] == "Toggle" then
                         Keybind.Value = not Keybind.Value;
                         Keybind.Callback(Keybind.Value)
-                    elseif Keybind["Mode"] == "Hold" then 
+                    elseif Keybind["Mode"] == "Hold" then
                         Keybind.Value = true;
                         Keybind.Callback(Keybind.Value)
-                    elseif Keybind["Mode"] == "Press" then 
+                    elseif Keybind["Mode"] == "Press" then
                         Keybind.Callback(Keybind.Value)
                     end;
                 end
     
-                if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then 
-                    if Keybind["Mode"] == "Toggle" then 
+                if Input.UserInputType == Keybind["Key"] and not Keybind.IsBeingSelected then
+                    -- check if user is typing in any textbox
+                    if game:GetService("UserInputService"):GetFocusedTextBox() then
+                        return
+                    end
+
+                    if Keybind["Mode"] == "Toggle" then
                         Keybind.Value = not Keybind.Value;
                         Keybind.Callback(Keybind.Value)
-                    elseif Keybind["Mode"] == "Hold" then 
+                    elseif Keybind["Mode"] == "Hold" then
                         Keybind.Value = true;
                         Keybind.Callback(Keybind.Value)
-                    elseif Keybind["Mode"] == "Press" then 
+                    elseif Keybind["Mode"] == "Press" then
                         Keybind.Callback(Keybind.Value)
                     end
                 end
@@ -2251,7 +2276,7 @@ local Library = {}; do
         Objects["value"].FontFace = LibFont
         Objects["value"].TextColor3 = Library.Text;
         Objects["value"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-        Objects["value"].Text = "--"
+        Objects["value"].Text = "Penis"
         Objects["value"].Name = "value"
         Objects["value"].Size = UDim2.new(1, -20, 1, 0)
         Objects["value"].BackgroundTransparency = 1
@@ -3334,7 +3359,7 @@ local Library = {}; do
         Objects["value"].FontFace = LibFont
         Objects["value"].TextColor3 = Library.Text;
         Objects["value"].BorderColor3 = Color3.fromRGB(0, 0, 0)
-        Objects["value"].Text = "--"
+        Objects["value"].Text = "Penis"
         Objects["value"].Name = "value"
         Objects["value"].Size = UDim2.new(1, -20, 1, 0)
         Objects["value"].BackgroundTransparency = 1
@@ -3808,4 +3833,3 @@ local Library = {}; do
 end;
 
 return Library;
-
