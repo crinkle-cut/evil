@@ -238,29 +238,11 @@ local Library = {}; do
         -- unlock cursor when ui is open, lock when closed
         local UserInputService = game:GetService("UserInputService")
         if Bool then
-            -- unlock cursor for ui interaction
             UserInputService.MouseBehavior = Enum.MouseBehavior.Default
             UserInputService.MouseIconEnabled = true
-
-            -- create modal frame for first person override (from research)
-            if not Library.ModalFrame then
-                Library.ModalFrame = Instance.new("Frame")
-                Library.ModalFrame.Size = UDim2.new(1, 0, 1, 0)
-                Library.ModalFrame.BackgroundTransparency = 1
-                Library.ModalFrame.Modal = true
-                Library.ModalFrame.Parent = Library.Holder
-                Library.ModalFrame.ZIndex = -10 -- behind everything else
-            end
-            Library.ModalFrame.Visible = true
         else
-            -- lock cursor back for gameplay
             UserInputService.MouseBehavior = Enum.MouseBehavior.LockCenter
             UserInputService.MouseIconEnabled = false
-
-            -- hide modal frame
-            if Library.ModalFrame then
-                Library.ModalFrame.Visible = false
-            end
         end
     end;
 
