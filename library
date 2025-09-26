@@ -2102,6 +2102,7 @@ local Library = {}; do
             Objects["indicator"].Size = UDim2.new(SizeX, 0, 1, 0);
             Objects["value"].Text = TextValue:gsub("%[value%]", string.format("%.14g", value));
             Val = value;
+            Slider.Value = value; -- Update the property for config serialization
 
             if Slider.Callback then
                 Slider.Callback(Val);
