@@ -237,6 +237,7 @@ local Library = {}; do
     end;
 
     function Library:Round(Number, Float)
+        if Float <= 0 then return Number end;
         return Float * math.floor(Number / Float);
     end;
 
