@@ -158,34 +158,24 @@ end
 function esp.checkalive(plr)
     if not plr then plr = localPlayer end
 
-    -- Debug output
-    print("ESP DEBUG - Checking player:", plr.Name)
-
     -- TTT alive check: workspace.[playername] must exist
     local workspace_model = workspace:FindFirstChild(plr.Name)
-    print("  Workspace model exists:", workspace_model ~= nil)
     if not workspace_model then
         return false -- player is dead if workspace model doesn't exist
     end
 
     -- Additional checks for TTT character structure
     local character = esp.getcharacter(plr)
-    print("  Character (Visuals):", character ~= nil)
     if not character then return false end
 
     local humanoid = character:FindFirstChild('Humanoid')
     local head = character:FindFirstChild('Head')
-    print("  Humanoid:", humanoid ~= nil, "Head:", head ~= nil)
 
+    -- Remove health check - TTT uses different health system
     if humanoid and head then
-        print("  Health:", humanoid.Health)
-        if humanoid.Health > 0 then
-            print("  Player is alive!")
-            return true
-        end
+        return true
     end
 
-    print("  Player failed alive check")
     return false
 end
 
