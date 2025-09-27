@@ -1733,17 +1733,26 @@ local Library = {}; do
     
                 Library:Connect(game:GetService("UserInputService").InputBegan, function(Input)
                     if Input.UserInputType == Enum.UserInputType.Keyboard and Keybind.IsBeingSelected then
-                        Keybind:Set(Input.KeyCode);
-                        Keybind.IsBeingSelected = false;
-                    elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then 
+                        if Input.KeyCode == Enum.KeyCode.Escape then
+                            -- ESC key unbinds the keybind
+                            Keybind.Key = nil
+                            SubObjects["key"].Text = "[NONE]"
+                            KeyObject:Set("None", Toggle.Name)
+                            Keybind.AbKey = "None"
+                            Keybind.IsBeingSelected = false
+                        else
+                            Keybind:Set(Input.KeyCode)
+                            Keybind.IsBeingSelected = false
+                        end
+                    elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then
                         Keybind:Set(Enum.UserInputType.MouseButton1, true)
-                    elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then 
+                    elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then
                         Keybind:Set(Enum.UserInputType.MouseButton2, true)
-                    elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then 
+                    elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then
                         Keybind:Set(Enum.UserInputType.MouseButton3, true)
-                    elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then 
+                    elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then
                         Keybind:Set(Enum.UserInputType.MouseWheel, true)
-                    else 
+                    else
                         Keybind.IsBeingSelected = false;
                     end;
                 end);
@@ -2687,17 +2696,26 @@ local Library = {}; do
 
             Library:Connect(game:GetService("UserInputService").InputBegan, function(Input)
                 if Input.UserInputType == Enum.UserInputType.Keyboard and Keybind.IsBeingSelected then
-                    Keybind:Set(Input.KeyCode);
-                    Keybind.IsBeingSelected = false;
-                elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then 
+                    if Input.KeyCode == Enum.KeyCode.Escape then
+                        -- ESC key unbinds the keybind
+                        Keybind.Key = nil
+                        SubObjects["key"].Text = "[NONE]"
+                        KeyObject:Set("None", Toggle.Name)
+                        Keybind.AbKey = "None"
+                        Keybind.IsBeingSelected = false
+                    else
+                        Keybind:Set(Input.KeyCode)
+                        Keybind.IsBeingSelected = false
+                    end
+                elseif Input.UserInputType == Enum.UserInputType.MouseButton1 and Keybind.IsBeingSelected then
                     Keybind:Set(Enum.UserInputType.MouseButton1, true)
-                elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then 
+                elseif Input.UserInputType == Enum.UserInputType.MouseButton2 and Keybind.IsBeingSelected then
                     Keybind:Set(Enum.UserInputType.MouseButton2, true)
-                elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then 
+                elseif Input.UserInputType == Enum.UserInputType.MouseButton3 and Keybind.IsBeingSelected then
                     Keybind:Set(Enum.UserInputType.MouseButton3, true)
-                elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then 
+                elseif Input.UserInputType == Enum.UserInputType.MouseWheel and Keybind.IsBeingSelected then
                     Keybind:Set(Enum.UserInputType.MouseWheel, true)
-                else 
+                else
                     Keybind.IsBeingSelected = false;
                 end;
             end);
