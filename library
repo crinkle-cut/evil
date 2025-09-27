@@ -2703,6 +2703,8 @@ local Library = {}; do
                         KeyObject:Set("None", Toggle.Name)
                         Keybind.AbKey = "None"
                         Keybind.IsBeingSelected = false
+                        -- restore normal color
+                        game:GetService("TweenService"):Create(SubObjects["key"], TweenInfo.new(0.13, Enum.EasingStyle.Sine, Enum.EasingDirection.Out), {TextColor3 = Library.Text}):Play()
                     else
                         Keybind:Set(Input.KeyCode)
                         Keybind.IsBeingSelected = false
