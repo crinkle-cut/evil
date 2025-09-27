@@ -68,8 +68,37 @@ local esp = {
     players = {},
     priority_players = {},
     connections = {},
-    visiblecheckparams = {}
+    visiblecheckparams = {},
+    initialized = false
 }
+
+
+function esp:initialize()
+    if self.initialized then return end
+
+    
+
+    
+    for _, player in pairs(players:GetPlayers()) do
+        if player ~= localPlayer then
+            
+            self:add(player)
+        end
+    end
+
+    self.initialized = true
+    
+end
+
+-- Enhanced enable function
+function esp:setEnabled(value)
+    print("enabled to:", value)
+    self.enabled = value
+
+    if value and not self.initialized then
+        self:initialize()
+    end
+end
 
 -- index optimisations
 local NEWCF     = CFrame.new
